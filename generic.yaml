@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mstentityv1-service-deployment
+  namespace: default
+  labels:
+    app: mstentityv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mstentityv1
+  template:
+    metadata:
+      labels:
+        app: mstentityv1
+    spec:
+      containers:
+      - name: mstentityv1
+        image: 10.26.24.21:8083/directtax/k8s-mstentityv1:latest
+        ports:
+        - containerPort: 8204
+#      nodeSelector:
+#        servicetype: mstentityv1service
+      imagePullSecrets:
+      - name: nexus 
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+
